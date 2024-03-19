@@ -59,4 +59,4 @@ print(config.MODEL.ENC_NUM_HEADS)  # Outputs: 16
 print(config.SOME_OTHER_CONFIG)  # Outputs: 20
 ```
 
-If you find this code useful, please consider giving it a star (&#9733;) :).
+If you find this code useful, please consider giving it a star (☆) :).
