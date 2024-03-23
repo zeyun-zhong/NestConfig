@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="nestconfig",
-    version="0.1.1",
+    version="0.2.0",
     author="Zeyun Zhong",
     author_email="zeyun.zhong@kit.edu",
     description="Type-safe configuration management with support for nested dataclasses",
@@ -14,6 +14,9 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    packages=find_packages(),
+    packages=find_packages(exclude=["test", "test.*"]),
     python_requires='>=3.7',
+    install_requires=[
+        'PyYAML',  # Add PyYAML to the list of required packages
+    ],
 )

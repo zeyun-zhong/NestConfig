@@ -27,7 +27,8 @@ pip install nestconfig
 
 It can also be built from source with ```pip install .``` from this repository.
 
-## Minimal Example
+## How to use
+### Minimal Example
 ```python
 from dataclasses import dataclass
 from nestconfig import NestConfig
@@ -58,5 +59,11 @@ config.merge_opts(opts)
 print(config.MODEL.ENC_NUM_HEADS)  # Outputs: 16
 print(config.SOME_OTHER_CONFIG)  # Outputs: 20
 ```
+
+### More examples
+More examples can be found in [test](test) folder.
+
+### Blog post
+A blog post can be found [here](https://zeyun-zhong.github.io/blog/2024/NestConfig/).
 
 If you find this code useful, please consider giving it a star (☆) :).

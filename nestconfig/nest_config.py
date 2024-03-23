@@ -1,4 +1,5 @@
-from dataclasses import is_dataclass
+from dataclasses import is_dataclass, asdict
+import yaml
 from typing import Any, Dict, TypeVar, get_type_hints, List
 
 T = TypeVar('T')
@@ -24,6 +25,11 @@ class NestConfig:
             else:
                 raise AttributeError(
                     f"'{type(self).__name__}' object has no attribute '{key}'")
+
+    def merge_yaml(self, yaml_file: str) -> None:
+        with open(yaml_file, 'r') as file:
+            updates = yaml.safe_load(file)
+        self.merge_updates(updates)
 
     def merge_opts(self, opts: List[str]) -> None:
         assert len(opts) % 2 == 0, "opts list must contain an even number of elements."
@@ -91,3 +97,22 @@ class NestConfig:
     def from_dict(cls: T, config_dict: Dict[str, Any]) -> T:
         """Creates a configuration instance from a dictionary."""
         return cls(**config_dict)
+
+    def to_yaml(self, file_path) -> None:
+        """
+        Serialize the dataclass to YAML and write it to a file.
+        """
+        config_dict = self.to_dict(self)
+        with open(file_path, 'w') as file:
+            yaml.dump(config_dict, file)
+
+    @staticmethod
+    def to_dict(instance):
+        """
+        Convert the dataclass instance to a dictionary, handling nested dataclasses.
+        """
+        if is_dataclass(instance):
+            return {k: NestConfig.to_dict(v) for k, v in
+                    asdict(instance).items()}
+        else:
+            return instance
